@@ -1,0 +1,26 @@
+# supersecret data
+.env
+
+# virtual environment
+venv/
+.venv/
+env/
+
+# Python cache 
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE configurations (VS Code)
+.idea/
+.vscode/
+
+# local db files
+*.db
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
