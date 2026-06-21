@@ -1,13 +1,15 @@
-“AmoSync – LeadHub” – README.md
-
-
 [![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/)
 [![aiogram](https://img.shields.io/badge/Telegram-aiogram_3.x-blue.svg)](https://github.com/aiogram/aiogram)
 [![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-blue.svg)](https://www.postgresql.org/)
 [![Docker](https://img.shields.io/badge/Container-Docker-blue.svg)](https://www.docker.com/)
 
-> Всем привет! Меня зовут Камо — и я начинающий разработчик, хочу решать задачи бизнеса. Это первый серьезный проект, все свои b2b-проекты я строю по формуле:
+## AmoSync – LeadHub 
+
+Всем привет! Меня зовут Камо — и я начинающий разработчик, хочу решать задачи бизнеса. Это первый серьезный проект, все свои b2b-проекты я строю по формуле:
 **Решаем задачу А с результатом Б за время Т с экономией денег/ростом выручки Х руб.**
+
+Проект "AmoSync - LeadHub" - это софт, который решает проблему ручного и долгого поиска лидов с сайта поставщика дилером. в СРМ-систему дилера падает заявка о новом лиде сразу же, как потенциальный покупатель заполнил заявку на сайте поставщика (например, с сайта бытовой техники Haier). При появлении заявки в СРМ прилетает уведомление в телеграм-бота в группе менеджеров. Этот бот по принципу round-robin выбирает менджера, на кого выпадет лид и имеет кнопки "взять в работу"/"не могу взять".  
+
 
 ---
 ## 💼 Бизнес-ценность проекта (Бизнес-формула)
@@ -20,44 +22,7 @@
 
 ## 🗺 Схема работы и Архитектура системы
 
-
-[Платформа Поставщика (randomuser.me)
-
-       │ 
-       │ (Async GET-Polling, раз в 30-60 сек)
-       ▼
-
-AmoSync Middleware] ◄──► PostgreSQL DB (Async SQLAlchemy 2.0)
-
-       |
-       |
-       ▼
-
-  AmoCRM API
- 
-       |
-       ▼
-      
-Telegram Bot (aiogram 3.x)
-
-       │
-       ▼
-
-Распределение Round-Robin
-
-       |
-       ▼
-
-СинхронизацияГрупповой чат менеджеров
-
-       │
-       ▼ 
-Защита от Race Condition
-
-       |
-       ▼
-       
-Успешный Менеджер
+**Платформа Поставщика (randomuser.me) --> AmoSync Middleware ◄──► PostgreSQL DB (Async SQLAlchemy 2.0) --> AmoCRM API --> Telegram Bot (aiogram 3.x) --> Распределение Round-Robin --> Синхронизация в групповом чате менеджеров --> Защита от Race Condition --> Успешный Менеджер**
 
 
 ## 🛠 Технологический стек
@@ -143,56 +108,6 @@ WHERE id = :lead_id AND manager_id IS NULL;
 ### 🔑 5. Автоматическое обновление OAuth 2.0
 Токены для интеграции с AmoCRM обновляются автоматически за 1 час до истечения их срока жизни (раз в 23 часа), исключая риск внезапной остановки синхронизации.
 
----
-
-## 🚀 Быстрый старт в Docker
-
-### 1. Клонирование репозитория
-
-
-bash
-
-git clone https://github.com/yourusername/AmoSync-LeadHub.git
-
-cd AmoSync-LeadHub
-### 2. Настройка окружения
-Создайте файл `.env` в корневой папке проекта на основе примера:
-
-
-env
-
-Database Settings
-
-POSTGRES_DB=amosync_db
-
-POSTGRES_USER=postgres
-
-POSTGRES_PASSWORD=super_secure_password
-
-DB_HOST=db
-
-DB_PORT=5432
-
-Telegram Bot
-
-BOT_TOKEN=123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ
-
-AmoCRM Configuration
-
-AMO_SUBDOMAIN=your_subdomain
-
-AMO_CLIENT_ID=your_client_id
-
-AMO_CLIENT_SECRET=your_client_secret
-
-AMO_REDIRECT_URI=https://yourdomain.com
-### 3. Запуск системы через Docker Compose
-Сборка контейнеров и запуск всех сервисов (БД, бот, воркеры, миграции Alembic) одной командой:
-
-
-bash
-
-docker-compose up -d --build
 ---
 
 ## 🧪 Качество и стандарты кода
