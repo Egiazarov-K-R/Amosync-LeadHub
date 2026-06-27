@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     amo_access_token: str
     amo_refresh_token: str
     amo_client_secret: str
+    amo_authorization_code: str
 
     # Telegram
     tg_chat_id: int

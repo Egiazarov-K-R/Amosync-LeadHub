@@ -12,7 +12,6 @@ Classes:
 import random
 from pydantic import BaseModel, Field, field_validator
 
-
 class LeadCreate(BaseModel):
     """
     Schema to validate and prepare raw lead data for processing.
@@ -29,9 +28,9 @@ class LeadCreate(BaseModel):
        of a Haier AC unit with standard installation) populates the CRM with immediate, 
        actionable pipeline value from the moment of capture.
     """
-    external_lead_id: str
     client_name: str
     client_phone: str
+    external_lead_id: str
     price: int = Field(default_factory=lambda: random.randint(35000, 60000))
 
     @field_validator("client_phone")
